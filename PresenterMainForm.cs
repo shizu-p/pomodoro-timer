@@ -1,49 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pomodoro_timer
 {
-    internal class PresenterMainForm
+    public class PresenterMainForm
     {
         private readonly PomodoroView _view;
         private readonly PomodoroTimer _model;
-        private readonly Control _uiControl;
 
-        public PresenterMainForm(PomodoroView view)
+        public PresenterMainForm(PomodoroView view, PomodoroTimer model)
         {
             _view = view;
-            _model = new PomodoroTimer();
-            _uiControl = _view.GetControl();
+            _model = model;
 
-            _model.TimerTicked += OnModelTimerTicked;
-            _model.StateChanged += OnModelStateChanged;
+            _view.ButtonStartStopClicked += OnViewButtonStartStopClicked;
+            _view.TimerTicked += OnViewTimerTicked;
 
-            _view.StartStopButtonClicked += OnViewStartStopButtonClicked;
-
-            UpdateViewFromModel();
-
+            _view.UpdateTimerDisplay(_model.RemainingTime.ToString("mm\\:ss"));
         }
 
-        private void OnModelTimerTicked(object sender, EventArgs e)
+        private void OnViewButtonStartStopClicked(object sender, EventArgs e)
         {
-            _uiControl.Invoke(new MethodInvoker(() =>
+            if (_model.IsInCounting)
             {
-                TimeSpan time = TimeSpan.FromSeconds(_model.RemainingTime);
-                _view.DisplayRemainingTime(time.ToString(@"mm\:ss"));
-            }));
+                _model.StopCounting();
+                _view.StopTimer();
+
+            }
+            else
+            {
+                _model.StartCounting();
+                _view.StartTimer();
+            }
         }
 
-        private void OnModelStateChanged(object sender, EventArgs e)
+        private void OnViewTimerTicked(object sender, EventArgs e)
         {
-            _uiControl.Invoke(new MethodInvoker(UpdateViewFromModel));
-        }
+            // 時間を1秒減らす
+            _model.DecrementTime();
 
-        private void UpdateViewFromModel()
-        {
-           
+            // Modelからの残り時間を取得
+            string RemainingTime = _model.RemainingTime.ToString("mm\\:ss");
+
+            //ViewにUIを更新してもらう
+            _view.UpdateTimerDisplay(RemainingTime);
         }
     }
 }

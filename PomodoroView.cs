@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pomodoro_timer
 {
-    internal class PomodoroView
+    public interface PomodoroView
     {
-        //PresenterからViewへの通知
-        void DisplayRemainingTime(string time);
-        void DisplaySetInfo(string info);
-        void DisplayStatus(string status);
-        void SetStartStopButtonText(string text);
+        // Presenterに通知するイベント
+        event EventHandler ButtonStartStopClicked;
 
-        // ViewからPresenterへの通知
-        event EventHandler StartStopButtonClicked;
+        // Viewがもつタイマーが刻んだことをPresenterに通知
+        event EventHandler TimerTicked;
 
-        // PresenterからUIへのInvokeに使うためのControlインスタンスを取得するためのメソッド
-        public Control GetControl();
+        // Presenter が ViewのUIを更新
+        void UpdateTimerDisplay(string RemainingTimer);
+
+        void StartTimer();
+        void StopTimer();
     }
 }

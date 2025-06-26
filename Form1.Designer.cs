@@ -45,7 +45,7 @@
             ButtonStartStop.TabIndex = 0;
             ButtonStartStop.Text = "スタート";
             ButtonStartStop.UseVisualStyleBackColor = true;
-            ButtonStartStop.Click += ButtonStartStop_Click;
+            //ButtonStartStop.Click += ButtonStartStop.Click;
             // 
             // ButtonReset
             // 

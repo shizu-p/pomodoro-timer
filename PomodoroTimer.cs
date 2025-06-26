@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Timers;
+using System.Threading;
 
 namespace pomodoro_timer
 {
@@ -18,16 +17,10 @@ namespace pomodoro_timer
         public bool IsInCounting { get; private set; }
 
         public int RemainingTime { get; private set; }
-        private System.Timers.Timer timer;
+
+
         // 残り時間が1秒減るごとにUIタイマー更新
-        public event EventHandler TimerTicked;
-
-        // 状態が変わるごとにUI更新
         public event EventHandler StateChanged;
-
-        // バリデーションに失敗したときのイベント
-        public event EventHandler<string> ValidationFailed;
-
         public PomodoroTimer()
         {
             IsInWork = true;
@@ -38,108 +31,45 @@ namespace pomodoro_timer
             IsInCounting = false;
 
             RemainingTime = WorkTime * 60;
-            timer = new System.Timers.Timer(1000); // 1秒ごとにタイマーイベントを発生
-            timer.Elapsed += OnTimerElapsed;
-
- 
         }
 
-        private void OnTimerElapsed(object sender,ElapsedEventArgs e)
+        public void StartCounting()
         {
-            TimerTicked?.Invoke(this, EventArgs.Empty);     
-            this.RemainingTime--;
-            if (RemainingTime <= 0)
-            {
-                if (IsInWork)
-                {
-                    RemainingTime = (SetTimes % 4 == 3) ? LongRestTime * 60 : RestTime * 60;
-                } else
-                {
-                    RemainingTime = WorkTime * 60;
-                    SetTimes++;
-                }
-                IsInWork = !IsInWork;
-                StateChanged?.Invoke(this, EventArgs.Empty);    
-            }
-        }
-
-        // Presenterから呼ばれる
-        public void StartTimer()
-        {
-            if (IsInCounting)
-            {
-                return; // すでにカウント中なら何もしない
-            }
-            this.timer.Start();
+            if (IsInCounting) return;
             IsInCounting = true;
-            StateChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void StopTimer()
-        {
-            if (!IsInCounting)
-            {
-                return; // カウント中でなければ何もしない
-            }
-            this.timer.Stop();
-            IsInCounting = false;
             StateChanged?.Invoke(this,EventArgs.Empty);
         }
 
-        public void SkipTimer()
+        public void StopCounting()
         {
-            StopTimer();
-            if(IsInWork)
-            {
-                RemainingTime = (SetTimes % 4 == 3) ? LongRestTime * 60 : RestTime * 60;
-            }
-            else
-            {
-                RemainingTime = WorkTime * 60;
-                SetTimes++;
-            }
-            IsInWork = !IsInWork;
-
-            if (!IsInCounting)
-            {
-                IsInCounting = true;
-            }
-
-            // イベントを発火してUIを更新
-            StateChanged?.Invoke(this, EventArgs.Empty);
-            TimerTicked?.Invoke(this, EventArgs.Empty);
-
-            // タイマーを再スタート
-            StartTimer();
-        }
-
-        public void ResetTimer()
-        {
-            StopTimer();
-            RemainingTime = WorkTime * 60;
+            if (!IsInCounting) return;
             IsInCounting = false;
-            IsInWork = true;
-            SetTimes = 0;
-
-            // イベントを発火してUIを更新
             StateChanged?.Invoke(this, EventArgs.Empty);
-            TimerTicked?.Invoke(this, EventArgs.Empty); 
         }
 
-        public bool ChangeTimer(int WorkTime, int RestTimer, int LongRestTime)
+        public void DecrementTime()
         {
-            if(WorkTime <= 0 || RestTimer < 0 || LongRestTime < 0)
+            if (IsInCounting)
             {
-                ValidationFailed?.Invoke(this, "時間は正の整数でなければなりません。");
-                return false;
-            }
-            this.WorkTime = WorkTime;
-            this.RestTime = RestTimer;
-            this.LongRestTime = LongRestTime;
+                RemainingTime--;
 
-            StateChanged?.Invoke(this, EventArgs.Empty);
-            TimerTicked?.Invoke(this, EventArgs.Empty); 
-            return true;
+                if (RemainingTime <= 0)
+                {
+                    IsInWork = !IsInWork;
+                    if (IsInWork)
+                    {
+                        RemainingTime = WorkTime * 60;
+                        SetTimes++;
+                    }
+                    else
+                    {
+                        RemainingTime = (SetTimes % 4 == 3) ? LongRestTime * 60 : RestTime * 60;
+
+                    }
+
+                    StateChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
         }
     }
 }

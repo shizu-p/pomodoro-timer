@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace pomodoro_timer
 {
     internal static class Program
@@ -12,7 +15,14 @@ namespace pomodoro_timer
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // ViewとModelのインスタンスを作成
+            MainForm view = new MainForm();
+            PomodoroTimer model = new PomodoroTimer();
+            PresenterMainForm presenter = new PresenterMainForm(view, model);
+            Application.Run(view);
         }
     }
 }
