@@ -15,7 +15,6 @@ namespace pomodoro_timer
     {
         public event EventHandler ButtonSaveClicked;
         public event EventHandler ButtonCancelClicked;
-
         public FormSettings()
         {
             InitializeComponent();

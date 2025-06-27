@@ -19,6 +19,7 @@ namespace pomodoro_timer
             _model = model;
 
             _view.ButtonSaveClicked += OnViewButtonSaveClicked;
+            _view.ButtonCancelClicked += OnViewButtonCancelClicked;
             _pview.ButtonSettingsClicked += OnViewButtonSettingsClicked;
         }
 
@@ -32,6 +33,11 @@ namespace pomodoro_timer
             _model.SetLongRestTime(LongRestTime);
 
         }
+        private void OnViewButtonCancelClicked(object sender, EventArgs a)
+        {
+            var SettingsForm = _view as Form;
+            SettingsForm?.Close();
+        }
         private void OnViewButtonSettingsClicked(object sender, EventArgs a)
         {
             var SettingsForm = _view as Form;
@@ -40,5 +46,7 @@ namespace pomodoro_timer
                 SettingsForm.ShowDialog();
             }
         }
+
+        
     }
 }
