@@ -52,7 +52,7 @@ namespace pomodoro_timer
             if (IsInCounting)
             {
                 RemainingTime--;
-
+                StateChanged?.Invoke(this, EventArgs.Empty);
                 if (RemainingTime <= 0)
                 {
                     IsInWork = !IsInWork;

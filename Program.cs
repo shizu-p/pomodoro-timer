@@ -19,10 +19,10 @@ namespace pomodoro_timer
             Application.SetCompatibleTextRenderingDefault(false);
 
             // ViewとModelのインスタンスを作成
-            MainForm view = new MainForm();
-            PomodoroTimer model = new PomodoroTimer();
-            PresenterMainForm presenter = new PresenterMainForm(view, model);
-            Application.Run(view);
+            var MainForm = new MainForm();
+            var PomodoroTimer  = new PomodoroTimer();
+            var Presenter = new PresenterMainForm(MainForm, PomodoroTimer);
+            Application.Run(MainForm);
         }
     }
 }
