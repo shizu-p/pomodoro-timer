@@ -71,5 +71,22 @@ namespace pomodoro_timer
                 }
             }
         }
+
+        public void Skip()
+        {
+            if(IsInWork)
+            {
+                IsInWork = false;
+                RemainingTime = (SetTimes % 4 == 3) ? LongRestTime * 60 : RestTime * 60;
+            }
+            else
+            {
+                IsInWork = true;
+                RemainingTime = WorkTime * 60;
+                SetTimes++;
+            }
+            IsInCounting = true;
+            StateChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

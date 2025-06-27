@@ -10,6 +10,8 @@ namespace pomodoro_timer
         // Viewがもつタイマーが刻んだことをPresenterに通知
         event EventHandler TimerTicked;
 
+        event EventHandler ButtonSkipClicked;
+
         // Presenter が ViewのUIを更新
         void UpdateTimerDisplay(string RemainingTimer);
 

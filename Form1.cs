@@ -8,8 +8,10 @@
         {
             public event EventHandler ButtonStartStopClicked;
             public event EventHandler TimerTicked;
+       
+            public event  EventHandler ButtonSkipClicked;
 
-            private readonly System.Windows.Forms.Timer FormTimer;
+        private readonly System.Windows.Forms.Timer FormTimer;
 
             public MainForm()
             {
@@ -20,11 +22,15 @@
                 FormTimer.Tick += (sender, e) => TimerTicked?.Invoke(this, EventArgs.Empty);
 
             //UIのclickをPresenterが購読するButtonStartStopClickedに紐づけ
-            ButtonStartStop.Click += (sender, e) =>
-            {
-                MessageBox.Show("ButtonStartStop Clicked");
-                ButtonStartStopClicked?.Invoke(this, EventArgs.Empty);
-            };
+                ButtonStartStop.Click += (sender, e) =>
+                {
+                    ButtonStartStopClicked?.Invoke(this, EventArgs.Empty);
+                };
+
+                ButtonSkip.Click += (sender, e) =>
+                {
+                    ButtonSkipClicked?.Invoke(this, EventArgs.Empty);
+                };
 
 
             }
@@ -37,11 +43,13 @@
             public void StartTimer()
             {
                 FormTimer.Start();
+                ButtonStartStop.Text = "ストップ";
             }
 
             public void StopTimer()
             {
                 FormTimer.Stop();
+                ButtonStartStop.Text = "スタート";  
             }
         }
     }

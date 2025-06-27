@@ -16,6 +16,7 @@ namespace pomodoro_timer
             _view.TimerTicked += OnViewTimerTicked;
 
             _view.UpdateTimerDisplay(TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss"));
+            _view.ButtonSkipClicked += OnViewButtonSkipClicked;
 
             _model.StateChanged += OnModelStateChanged;
         }
@@ -27,7 +28,6 @@ namespace pomodoro_timer
         }
         private void OnViewButtonStartStopClicked(object sender, EventArgs e)
         {
-            MessageBox.Show("Presenter まで通知が届いたよ");
             if (_model.IsInCounting)
             {
                 _model.StopCounting();
@@ -51,6 +51,16 @@ namespace pomodoro_timer
 
             //ViewにUIを更新してもらう
             _view.UpdateTimerDisplay(RemainingTime);
+        }
+
+        private void OnViewButtonSkipClicked(object sender, EventArgs e)
+        {
+            _model.Skip();
+            _model.StartCounting();
+            _view.StartTimer();
+            string RemainingTime = TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss");
+            _view.UpdateTimerDisplay(RemainingTime);
+            
         }
     }
 }
