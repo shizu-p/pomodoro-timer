@@ -15,6 +15,8 @@ namespace pomodoro_timer
         // リセットボタンがクリックされたことをPresenterに通知
         event EventHandler ButtonResetClicked;
 
+        // 設定ボタンがクリックされたことをPresenterに通知
+        event EventHandler ButtonSettingsClicked;
         // Presenter が ViewのUIを更新
         void UpdateTimerDisplay(string RemainingTimer,string SetTimes);
 

@@ -37,7 +37,7 @@ namespace pomodoro_timer
         {
             if (IsInCounting) return;
             IsInCounting = true;
-            StateChanged?.Invoke(this,EventArgs.Empty);
+            StateChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void StopCounting()
@@ -74,7 +74,7 @@ namespace pomodoro_timer
 
         public void Skip()
         {
-            if(IsInWork)
+            if (IsInWork)
             {
                 IsInWork = false;
                 RemainingTime = (SetTimes % 4 == 3) ? LongRestTime * 60 : RestTime * 60;
@@ -100,6 +100,19 @@ namespace pomodoro_timer
             IsInCounting = false;
             RemainingTime = WorkTime * 60;
             StateChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetWorkTime(int WorkTime)
+        {
+            this.WorkTime = WorkTime;
+        }
+        public void SetRestTime(int RestTime)
+        {
+            this.RestTime = RestTime;
+        }
+        public void SetLongRestTime(int LongRestTime)
+        {
+            this.LongRestTime = LongRestTime;
         }
     }
 }
