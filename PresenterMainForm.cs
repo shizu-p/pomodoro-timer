@@ -14,17 +14,21 @@ namespace pomodoro_timer
 
             _view.ButtonStartStopClicked += OnViewButtonStartStopClicked;
             _view.TimerTicked += OnViewTimerTicked;
-
-            _view.UpdateTimerDisplay(TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss"));
+            string SetTimes = (_model.SetTimes+1).ToString();
+            SetTimes += "セット目";
+            _view.UpdateTimerDisplay(TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss"),SetTimes);
             _view.ButtonSkipClicked += OnViewButtonSkipClicked;
-
+            _view.ButtonResetClicked += OnViewButtonResetClicked;
+            
             _model.StateChanged += OnModelStateChanged;
         }
 
         private void OnModelStateChanged(object sender,EventArgs e)
         {
             string RemainingTime = TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss");
-            _view.UpdateTimerDisplay(RemainingTime);
+            string SetTimes = (_model.SetTimes + 1).ToString();
+            SetTimes += "セット目";
+            _view.UpdateTimerDisplay(RemainingTime,SetTimes);
         }
         private void OnViewButtonStartStopClicked(object sender, EventArgs e)
         {
@@ -48,9 +52,10 @@ namespace pomodoro_timer
 
             // Modelからの残り時間を取得
             string RemainingTime = TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss");
-
+            string SetTimes = (_model.SetTimes + 1).ToString();
+            SetTimes += "セット目";
             //ViewにUIを更新してもらう
-            _view.UpdateTimerDisplay(RemainingTime);
+            _view.UpdateTimerDisplay(RemainingTime, SetTimes);
         }
 
         private void OnViewButtonSkipClicked(object sender, EventArgs e)
@@ -59,8 +64,19 @@ namespace pomodoro_timer
             _model.StartCounting();
             _view.StartTimer();
             string RemainingTime = TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss");
-            _view.UpdateTimerDisplay(RemainingTime);
+            string SetTimes = (_model.SetTimes + 1).ToString();
+            SetTimes += "セット目";
+            _view.UpdateTimerDisplay(RemainingTime,SetTimes);
             
+        }
+
+        private void OnViewButtonResetClicked(object sender, EventArgs e)
+        {
+            _model.Reset();
+            string SetTimes = (_model.SetTimes + 1).ToString();
+            SetTimes += "セット目";
+            _view.UpdateTimerDisplay(TimeSpan.FromSeconds(_model.RemainingTime).ToString(@"mm\:ss"),SetTimes);
+            _view.StopTimer();
         }
     }
 }

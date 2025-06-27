@@ -88,5 +88,18 @@ namespace pomodoro_timer
             IsInCounting = true;
             StateChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        public void Reset()
+        {
+            StopCounting();
+            IsInWork = true;
+            WorkTime = 25;
+            RestTime = 5;
+            LongRestTime = 20;
+            SetTimes = 0;
+            IsInCounting = false;
+            RemainingTime = WorkTime * 60;
+            StateChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

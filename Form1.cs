@@ -10,6 +10,7 @@
             public event EventHandler TimerTicked;
        
             public event  EventHandler ButtonSkipClicked;
+            public event EventHandler ButtonResetClicked;
 
         private readonly System.Windows.Forms.Timer FormTimer;
 
@@ -32,13 +33,19 @@
                     ButtonSkipClicked?.Invoke(this, EventArgs.Empty);
                 };
 
+                ButtonReset.Click += (sender, e) =>
+                {
+                    ButtonResetClicked?.Invoke(this, EventArgs.Empty);
+                };
 
-            }
 
-            public void UpdateTimerDisplay(string ReminingTimer)
+        }
+
+            public void UpdateTimerDisplay(string ReminingTimer,string SetTimes)
             {
                 LabelTimer.Text = ReminingTimer;
-            }
+                LabelTimes.Text = SetTimes;
+        }
 
             public void StartTimer()
             {
