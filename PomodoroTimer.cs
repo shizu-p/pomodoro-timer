@@ -24,7 +24,7 @@ namespace pomodoro_timer
         public PomodoroTimer()
         {
             IsInWork = true;
-            WorkTime = 25;
+            WorkTime =   25;
             RestTime = 5;
             LongRestTime = 20;
             SetTimes = 0;

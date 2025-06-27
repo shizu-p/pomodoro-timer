@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace pomodoro_timer
 {
-    public partial class FormSettings : Form,ViewSettingsForm
+    public partial class FormSettings : Form, ViewSettingsForm
     {
         public event EventHandler ButtonSaveClicked;
         public event EventHandler ButtonCancelClicked;
@@ -51,6 +51,6 @@ namespace pomodoro_timer
         private void SetLongRestTime(string text)
         {
             TextBoxLongRestTime.Text = text;
-        }   
+        }
     }
 }
