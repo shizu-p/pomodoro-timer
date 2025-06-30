@@ -18,6 +18,8 @@ namespace pomodoro_timer
 
         public int RemainingTime { get; private set; }
 
+        public bool HasStarted { get; private set; }
+
 
         // 残り時間が1秒減るごとにUIタイマー更新
         public event EventHandler StateChanged;
@@ -31,6 +33,8 @@ namespace pomodoro_timer
             IsInCounting = false;
 
             RemainingTime = WorkTime * 60;
+
+            HasStarted = false;
         }
 
         public void StartCounting()
@@ -51,6 +55,7 @@ namespace pomodoro_timer
         {
             if (IsInCounting)
             {
+                HasStarted = true;
                 RemainingTime--;
                 StateChanged?.Invoke(this, EventArgs.Empty);
                 if (RemainingTime <= 0)
@@ -93,12 +98,13 @@ namespace pomodoro_timer
         {
             StopCounting();
             IsInWork = true;
-            WorkTime = 25;
-            RestTime = 5;
-            LongRestTime = 20;
+            WorkTime = this.WorkTime;
+            RestTime = this.RestTime;
+            LongRestTime = this.LongRestTime;
             SetTimes = 0;
             IsInCounting = false;
-            RemainingTime = WorkTime * 60;
+            RemainingTime = this.WorkTime * 60;
+            HasStarted = false;
             StateChanged?.Invoke(this, EventArgs.Empty);
         }
 

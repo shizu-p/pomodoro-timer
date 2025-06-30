@@ -48,7 +48,15 @@ namespace pomodoro_timer
             _model.SetRestTime(RestTime);
             _model.SetLongRestTime(LongRestTime);
 
-            MessageBox.Show("設定を保存しました。\n次フェーズから適用されます。");
+            if (_model.HasStarted)
+            {
+                MessageBox.Show("設定を保存しました。\n次フェーズから適用されます。");
+            } else
+            {
+                MessageBox.Show("設定を保存しました。\n時刻を変更します");
+                _model.Reset();
+            }
+
             var SettingsForm = _view as Form;
             SettingsForm?.Close();
 

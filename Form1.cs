@@ -45,7 +45,22 @@ namespace pomodoro_timer
                 ButtonSettingsClicked?.Invoke(this, EventArgs.Empty);
             };
 
+            InitResize();
 
+        }
+
+        private void InitResize()
+        {
+            
+            LabelTimer.Location = new Point((this.Width-LabelTimer.Width)/2,(this.Height-LabelTimer.Height)/2);
+            LabelTimes.Location = new Point((this.Width - LabelTimes.Width) / 2, ((this.Height - LabelTimes.Height) / 7)*2);
+            LabelStatus.Location = new Point((this.Width - LabelStatus.Width) / 2, (this.Height - LabelStatus.Height) / 7);
+            int ButtonXMargin = 10;
+            int ButtonYMargin = 60;
+            int ButtonX = (this.Width - ButtonStartStop.Width * 3 + ButtonXMargin * 2) / 2;
+            ButtonStartStop.Location = new Point(ButtonX, this.Height - ButtonStartStop.Height - ButtonYMargin);
+            ButtonSkip.Location = new Point(ButtonX + ButtonStartStop.Width +ButtonXMargin, this.Height - ButtonSkip.Height - ButtonYMargin);
+            ButtonReset.Location = new Point(ButtonX + ButtonStartStop.Width * 2 + ButtonXMargin * 2, this.Height - ButtonReset.Height - ButtonYMargin);
         }
 
         public void UpdateTimerDisplay(string ReminingTimer, string SetTimes)

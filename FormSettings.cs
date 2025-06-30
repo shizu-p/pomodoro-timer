@@ -45,7 +45,14 @@ namespace pomodoro_timer
             get { return TextBoxLongRestTime.Text; }
         }
 
+        private void LabelLongRestTime_Click(object sender, EventArgs e)
+        {
 
+        }
 
+        private void ButtonSave_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

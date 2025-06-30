@@ -39,7 +39,7 @@
             // 
             // ButtonStartStop
             // 
-            ButtonStartStop.Location = new Point(168, 380);
+            ButtonStartStop.Location = new Point(170, 386);
             ButtonStartStop.Name = "ButtonStartStop";
             ButtonStartStop.Size = new Size(150, 100);
             ButtonStartStop.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             // ButtonReset
             // 
-            ButtonReset.Location = new Point(520, 380);
+            ButtonReset.Location = new Point(522, 386);
             ButtonReset.Name = "ButtonReset";
             ButtonReset.Size = new Size(150, 100);
             ButtonReset.TabIndex = 1;
@@ -57,17 +57,17 @@
             // 
             // LabelTimer
             // 
+            LabelTimer.AutoSize = true;
             LabelTimer.Font = new Font("Yu Gothic UI", 70F);
             LabelTimer.ForeColor = Color.LightGreen;
-            LabelTimer.Location = new Point(144, 168);
+            LabelTimer.Location = new Point(264, 168);
             LabelTimer.Name = "LabelTimer";
-            LabelTimer.Size = new Size(560, 155);
+            LabelTimer.Size = new Size(342, 155);
             LabelTimer.TabIndex = 2;
-            LabelTimer.Text = "時刻:時刻";
+            LabelTimer.Text = "00:00";
             // 
             // LabelTimes
             // 
-            LabelTimes.AutoSize = true;
             LabelTimes.Font = new Font("Yu Gothic UI", 25F);
             LabelTimes.ForeColor = SystemColors.ButtonHighlight;
             LabelTimes.Location = new Point(319, 31);
@@ -87,7 +87,7 @@
             // 
             // ButtonSkip
             // 
-            ButtonSkip.Location = new Point(348, 380);
+            ButtonSkip.Location = new Point(350, 386);
             ButtonSkip.Name = "ButtonSkip";
             ButtonSkip.Size = new Size(150, 100);
             ButtonSkip.TabIndex = 5;
@@ -96,7 +96,6 @@
             // 
             // LabelStatus
             // 
-            LabelStatus.AutoSize = true;
             LabelStatus.Font = new Font("Yu Gothic UI", 30F);
             LabelStatus.ForeColor = SystemColors.ButtonHighlight;
             LabelStatus.Location = new Point(319, 101);
