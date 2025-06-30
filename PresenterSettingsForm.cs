@@ -25,9 +25,25 @@ namespace pomodoro_timer
 
         private void OnViewButtonSaveClicked(object sender, EventArgs a)
         {
-            int WorkTime = int.Parse(_view.InputWorkTime);
-            int RestTime = int.Parse(_view.InputRestTime);
-            int LongRestTime = int.Parse(_view.InputLongRestTime);
+
+            int WorkTime;
+            int.TryParse(_view.InputWorkTime,out WorkTime);
+            int RestTime;
+            int.TryParse(_view.InputRestTime,out RestTime);
+            int LongRestTime;
+            int.TryParse(_view.InputLongRestTime,out LongRestTime);
+            if(WorkTime < 1 || 60 < WorkTime ||
+                RestTime < 1 || 60 < RestTime ||
+                LongRestTime < 1 || 60 < LongRestTime)
+            {
+                MessageBox.Show(
+                    "整数値であり、かつ1以上60以下の値を入力してください。",
+                    "入力エラー",
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error
+                    );
+                return;
+            }
             _model.SetWorkTime(WorkTime);
             _model.SetRestTime(RestTime);
             _model.SetLongRestTime(LongRestTime);

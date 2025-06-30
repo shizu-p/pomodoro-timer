@@ -114,5 +114,6 @@ namespace pomodoro_timer
         {
             this.LongRestTime = LongRestTime;
         }
+
     }
 }

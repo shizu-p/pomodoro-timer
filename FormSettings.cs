@@ -38,6 +38,7 @@ namespace pomodoro_timer
             get { return TextBoxLongRestTime.Text; }
         }
 
+
         private void SetWorkTime(string text)
         {
             TextBoxWorkTime.Text = text;
