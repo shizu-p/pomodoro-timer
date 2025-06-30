@@ -22,7 +22,7 @@ namespace pomodoro_timer
             var mainForm = new MainForm();
             var pomodoroTimer = new PomodoroTimer();
             var presenter = new PresenterMainForm(mainForm, pomodoroTimer);
-            var settingsForm = new FormSettings();
+            var settingsForm = new FormSettings(pomodoroTimer);
             var presenterSettings = new PresenterSettingsForm(settingsForm, mainForm, pomodoroTimer);
             Application.Run(mainForm);
         }

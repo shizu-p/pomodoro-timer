@@ -15,12 +15,19 @@ namespace pomodoro_timer
     {
         public event EventHandler ButtonSaveClicked;
         public event EventHandler ButtonCancelClicked;
-        public FormSettings()
+
+        private readonly PomodoroTimer _model;
+        public FormSettings(PomodoroTimer model)
         {
             InitializeComponent();
 
             ButtonSave.Click += (sender, e) => ButtonSaveClicked?.Invoke(this, EventArgs.Empty);
             ButtonCancel.Click += (sender, e) => ButtonCancelClicked?.Invoke(this, EventArgs.Empty);
+            // 初期値を設定
+            _model = model;
+            this.TextBoxWorkTime.Text = _model.WorkTime.ToString();
+            this.TextBoxRestTime.Text = _model.RestTime.ToString();
+            this.TextBoxLongRestTime.Text = _model.LongRestTime.ToString();
         }
 
         public string InputWorkTime
@@ -39,19 +46,6 @@ namespace pomodoro_timer
         }
 
 
-        private void SetWorkTime(string text)
-        {
-            TextBoxWorkTime.Text = text;
-        }
 
-        private void SetRestTime(string text)
-        {
-            TextBoxRestTime.Text = text;
-        }
-
-        private void SetLongRestTime(string text)
-        {
-            TextBoxLongRestTime.Text = text;
-        }
     }
 }

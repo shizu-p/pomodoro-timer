@@ -64,8 +64,10 @@ namespace pomodoro_timer
             if (SettingsForm != null)
             {
                 SettingsForm.ShowDialog();
+                
             }
         }
+
 
 
     }
